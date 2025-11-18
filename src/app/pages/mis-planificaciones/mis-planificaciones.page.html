@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Mis Planificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <!-- Filtros -->
+  <div class="filter-section">
+    <ion-segment [(ngModel)]="filtro" (ionChange)="loadPlanificaciones()">
+      <ion-segment-button value="todas">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="borrador">
+        <ion-label>Borradores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="completada">
+        <ion-label>Completadas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Lista -->
+  <div class="planificaciones-list">
+    
+    <div *ngIf="planificacionesFiltradas.length === 0" class="empty-state">
+      <ion-icon name="document-text-outline"></ion-icon>
+      <h3>No hay planificaciones</h3>
+      <p>Comienza creando tu primera planificación</p>
+      <ion-button (click)="crearNueva()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Nueva Planificación
+      </ion-button>
+    </div>
+
+    <ion-card *ngFor="let plan of planificacionesFiltradas" (click)="verDetalle(plan.id)">
+      <ion-card-header>
+        <ion-card-subtitle>{{ plan.asignatura }} - {{ plan.nivel }}</ion-card-subtitle>
+        <ion-card-title>{{ plan.titulo }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ plan.unidad }}</p>
+        <div class="card-footer">
+          <ion-chip [color]="plan.estado === 'completada' ? 'success' : 'warning'">
+            <ion-label>{{ plan.estado }}</ion-label>
+          </ion-chip>
+          <span class="fecha">{{ plan.fechaCreacion | date: 'dd/MM/yyyy' }}</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- FAB -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="crearNueva()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "EduPlanChile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

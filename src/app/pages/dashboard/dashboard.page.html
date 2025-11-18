@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <!-- Saludo -->
+  <div class="welcome-section">
+    <h1>¡Hola, {{ userName }}!</h1>
+    <p>Bienvenido a EduPlan Chile</p>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="stats-grid">
+    <ion-card *ngFor="let stat of estadisticas" [color]="stat.color">
+      <ion-card-content>
+        <ion-icon [name]="stat.icon" class="stat-icon"></ion-icon>
+        <h2>{{ stat.value }}</h2>
+        <p>{{ stat.label }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Acción rápida -->
+  <ion-button 
+    expand="block" 
+    size="large"
+    (click)="crearNuevaPlanificacion()"
+    class="create-button">
+    <ion-icon slot="start" name="add-circle"></ion-icon>
+    Nueva Planificación
+  </ion-button>
+
+  <!-- Planificaciones recientes -->
+  <div class="section-header">
+    <h2>Planificaciones Recientes</h2>
+    <ion-button 
+      fill="clear" 
+      size="small"
+      (click)="verTodasPlanificaciones()">
+      Ver todas
+    </ion-button>
+  </div>
+
+  <div *ngIf="planificacionesRecientes.length === 0" class="empty-state">
+    <ion-icon name="document-text-outline"></ion-icon>
+    <p>No tienes planificaciones aún</p>
+    <ion-button fill="outline" (click)="crearNuevaPlanificacion()">
+      Crear Primera Planificación
+    </ion-button>
+  </div>
+
+  <ion-card *ngFor="let plan of planificacionesRecientes" class="planificacion-card">
+    <ion-card-header>
+      <ion-card-subtitle>{{ plan.asignatura }} - {{ plan.nivel }}</ion-card-subtitle>
+      <ion-card-title>{{ plan.titulo }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="plan-info">
+        <ion-chip [color]="plan.estado === 'completada' ? 'success' : 'warning'">
+          <ion-label>{{ plan.estado }}</ion-label>
+        </ion-chip>
+        <span class="fecha">{{ plan.fechaCreacion | date: 'dd/MM/yyyy' }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,106 @@
+.welcome-section {
+  margin-bottom: 24px;
+  
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    color: var(--ion-color-primary);
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin: 0;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+
+  ion-card {
+    margin: 0;
+    text-align: center;
+
+    ion-card-content {
+      padding: 16px 8px;
+
+      .stat-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 0 4px 0;
+      }
+
+      p {
+        font-size: 12px;
+        margin: 0;
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+.create-button {
+  margin-bottom: 32px;
+  --background: var(--ion-color-primary);
+  font-weight: 600;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  
+  ion-icon {
+    font-size: 80px;
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin-bottom: 24px;
+  }
+}
+
+.planificacion-card {
+  margin-bottom: 12px;
+
+  .plan-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+
+    .fecha {
+      font-size: 12px;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+// Responsive para tablets
+@media (min-width: 768px) {
+  .stats-grid {
+    gap: 16px;
+  }
+}

@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Comunidad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h2>Foro de Docentes</h2>
+  
+  <ion-card *ngFor="let post of publicaciones">
+    <ion-card-header>
+      <ion-card-subtitle>{{ post.asignatura }}</ion-card-subtitle>
+      <ion-card-title>{{ post.autor }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ post.texto }}</p>
+      <small>{{ post.fecha | date: 'dd/MM/yyyy' }}</small>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

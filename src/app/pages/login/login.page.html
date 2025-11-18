@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-container">
+    <div class="header-section">
+      <ion-icon name="school-outline" class="logo-icon"></ion-icon>
+      <h1>EduPlan Chile</h1>
+      <p>Planificación Curricular MINEDUC</p>
+    </div>
+
+    <div class="form-section">
+      <ion-item lines="full">
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input 
+          type="email" 
+          [(ngModel)]="email"
+          placeholder="profesor@ejemplo.cl">
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input 
+          type="password" 
+          [(ngModel)]="password"
+          placeholder="••••••••">
+        </ion-input>
+      </ion-item>
+
+      <ion-button 
+        expand="block" 
+        (click)="onLogin()"
+        class="login-button">
+        Iniciar Sesión
+      </ion-button>
+
+      <ion-button 
+        expand="block" 
+        fill="clear"
+        size="small">
+        ¿Olvidaste tu contraseña?
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

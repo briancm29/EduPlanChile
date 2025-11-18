@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Repositorio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h2>Recursos Disponibles</h2>
+  
+  <ion-list>
+    <ion-item *ngFor="let recurso of recursos" button>
+      <ion-icon [name]="recurso.icon" [color]="recurso.color" slot="start"></ion-icon>
+      <ion-label>{{ recurso.titulo }}</ion-label>
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
