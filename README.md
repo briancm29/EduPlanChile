@@ -947,7 +947,7 @@ Este proyecto es de uso académico para la Universidad UNIACC.
 
 ## 👨‍💻 Autor
 
-**Brian Hernández**
+**Brian Castro**
 - GitHub: [tu-usuario]
 - Email: [tu-email]
 - LinkedIn: [tu-perfil]
