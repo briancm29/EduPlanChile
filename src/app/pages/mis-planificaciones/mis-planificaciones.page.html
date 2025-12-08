@@ -2,11 +2,33 @@
   <ion-toolbar color="primary">
     <ion-title>Mis Planificaciones</ion-title>
   </ion-toolbar>
+  
+  <!-- COMPONENTE NUEVO: ion-searchbar -->
+  <ion-toolbar>
+    <ion-searchbar 
+      [(ngModel)]="terminoBusqueda"
+      (ionInput)="handleSearch($event)"
+      (ionClear)="limpiarBusqueda()"
+      placeholder="Buscar por título, asignatura, nivel..."
+      [debounce]="300"
+      animated="true">
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   
-  <!-- Filtros -->
+  <!-- COMPONENTE NUEVO: ion-refresher (Pull to Refresh) -->
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Desliza para actualizar"
+      refreshingSpinner="circles"
+      refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <!-- Filtros por estado (ya existente) -->
   <div class="filter-section">
     <ion-segment [(ngModel)]="filtro" (ionChange)="loadPlanificaciones()">
       <ion-segment-button value="todas">
@@ -21,39 +43,82 @@
     </ion-segment>
   </div>
 
-  <!-- Lista -->
+  <!-- Indicador de búsqueda activa -->
+  <div *ngIf="terminoBusqueda" class="search-indicator">
+    <ion-chip color="primary">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-label>Buscando: "{{ terminoBusqueda }}"</ion-label>
+      <ion-icon name="close-circle" (click)="limpiarBusqueda()"></ion-icon>
+    </ion-chip>
+  </div>
+
+  <!-- Lista de planificaciones -->
   <div class="planificaciones-list">
     
+    <!-- Estado vacío -->
     <div *ngIf="planificacionesFiltradas.length === 0" class="empty-state">
-      <ion-icon name="document-text-outline"></ion-icon>
-      <h3>No hay planificaciones</h3>
-      <p>Comienza creando tu primera planificación</p>
-      <ion-button (click)="crearNueva()">
+      <ion-icon [name]="terminoBusqueda ? 'search-outline' : 'document-text-outline'"></ion-icon>
+      <h3>{{ terminoBusqueda ? 'No se encontraron resultados' : 'No hay planificaciones' }}</h3>
+      <p *ngIf="!terminoBusqueda">Comienza creando tu primera planificación</p>
+      <p *ngIf="terminoBusqueda">Intenta con otros términos de búsqueda</p>
+      <ion-button *ngIf="!terminoBusqueda" (click)="crearNueva()">
         <ion-icon slot="start" name="add"></ion-icon>
         Nueva Planificación
       </ion-button>
+      <ion-button *ngIf="terminoBusqueda" fill="outline" (click)="limpiarBusqueda()">
+        <ion-icon slot="start" name="close-circle"></ion-icon>
+        Limpiar Búsqueda
+      </ion-button>
     </div>
 
-    <ion-card *ngFor="let plan of planificacionesFiltradas" (click)="verDetalle(plan.id)">
+    <!-- Tarjetas de planificaciones (mejoradas) -->
+    <ion-card *ngFor="let plan of planificacionesFiltradas" 
+              (click)="verDetalle(plan.id)"
+              class="planificacion-card">
       <ion-card-header>
-        <ion-card-subtitle>{{ plan.asignatura }} - {{ plan.nivel }}</ion-card-subtitle>
-        <ion-card-title>{{ plan.titulo }}</ion-card-title>
+        <div class="card-header-content">
+          <div>
+            <ion-card-subtitle>{{ plan.asignatura }} - {{ plan.nivel }}</ion-card-subtitle>
+            <ion-card-title>{{ plan.titulo }}</ion-card-title>
+          </div>
+          <ion-icon 
+            [name]="getIconoEstado(plan.estado)" 
+            [color]="getColorEstado(plan.estado)"
+            class="estado-icon">
+          </ion-icon>
+        </div>
       </ion-card-header>
+      
       <ion-card-content>
-        <p>{{ plan.unidad }}</p>
+        <p class="unidad-texto">
+          <ion-icon name="book-outline" class="inline-icon"></ion-icon>
+          {{ plan.unidad }}
+        </p>
+        
         <div class="card-footer">
-          <ion-chip [color]="plan.estado === 'completada' ? 'success' : 'warning'">
+          <div class="fecha">
+            <ion-icon name="calendar-outline"></ion-icon>
+            {{ plan.fechaCreacion | date: 'dd/MM/yyyy' }}
+          </div>
+          <ion-chip [color]="getColorEstado(plan.estado)" class="estado-chip">
             <ion-label>{{ plan.estado }}</ion-label>
           </ion-chip>
-          <span class="fecha">{{ plan.fechaCreacion | date: 'dd/MM/yyyy' }}</span>
         </div>
       </ion-card-content>
     </ion-card>
+
+    <!-- Contador de resultados -->
+    <div *ngIf="planificacionesFiltradas.length > 0" class="resultados-info">
+      <p>Mostrando {{ planificacionesFiltradas.length }} 
+         {{ planificacionesFiltradas.length === 1 ? 'planificación' : 'planificaciones' }}
+         <span *ngIf="filtro !== 'todas'"> ({{ filtro }}s)</span>
+      </p>
+    </div>
   </div>
 
-  <!-- FAB -->
+  <!-- Botón flotante (FAB) - ya existente -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="crearNueva()">
+    <ion-fab-button (click)="crearNueva()" color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

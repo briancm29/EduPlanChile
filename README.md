@@ -1,343 +1,361 @@
-# EduPlan Chile - Aplicación Móvil de Planificación Curricular
+# EduPlan Chile - Aplicación Móvil Educativa
 
-## 📱 Descripción del Proyecto
+![Ionic](https://img.shields.io/badge/Ionic-7.2.0-blue)
+![Angular](https://img.shields.io/badge/Angular-17-red)
+![Estado](https://img.shields.io/badge/Estado-Parte%20A%20Completada-success)
 
-**EduPlan Chile** es una aplicación móvil desarrollada con Ionic/Angular que permite a los docentes chilenos crear, gestionar y compartir planificaciones curriculares alineadas con los estándares del MINEDUC (Ministerio de Educación de Chile).
+## Descripción del Proyecto
 
-Este proyecto corresponde al desarrollo de la **cáscara de navegación** de la aplicación, implementando toda la estructura de navegación, páginas principales y flujo de usuario sin contenido dinámico complejo.
+**EduPlan Chile** es una aplicación móvil educativa desarrollada con Ionic/Angular, diseñada para ayudar a profesores chilenos a crear y gestionar planificaciones educativas alineadas con el currículum nacional del MINEDUC y el Marco de la Buena Enseñanza.
 
----
-
-## 🎓 Información Académica
-
-- **Institución:** Universidad UNIACC
-- **Asignatura:** Taller de Dispositivos Móviles
-- **Estudiante:** Brian Castro Morales
-- **Profesor:** Jose Luis Pino Cofre
-- **Fecha:** Noviembre 2025
+Este proyecto es parte del **Taller de Dispositivos Móviles** de UNIACC, desarrollado en etapas para demostrar el dominio progresivo de componentes Ionic y patrones de desarrollo móvil.
 
 ---
 
-## 🎯 Objetivos Cumplidos
+## Objetivos del Desarrollo (Parte A)
 
-### ✅ Requisitos Implementados
+### Objetivos Cumplidos:
 
-1. **Cáscara de Navegación Completa**
-   - Sistema de navegación con 9 páginas funcionales
-   - Flujo de autenticación (Login → Onboarding → Dashboard)
-   - Navegación por tabs con 5 secciones principales
-
-2. **Estructura de Ionic/Angular**
-   - Arquitectura standalone components (moderna)
-   - Lazy loading para optimización de carga
-   - Routing anidado correctamente implementado
-
-3. **Páginas Implementadas**
-   - Login con validación básica
-   - Onboarding con 3 slides informativos
-   - Dashboard con estadísticas visuales
-   - Mis Planificaciones (lista de planificaciones)
-   - Crear Planificación (preparado para formulario)
-   - Repositorio de recursos
-   - Comunidad de docentes
-   - Perfil de usuario
-   - Tabs (contenedor de navegación)
-
-4. **Servicios Core**
-   - AuthService: Gestión de autenticación
-   - StorageService: Persistencia local
-   - PlanificacionService: Gestión de planificaciones
-
-5. **Guards de Seguridad**
-   - AuthGuard: Protección de rutas privadas
+1. **Implementar al menos 2 componentes nuevos de Ionic** - Implementados 4 componentes nuevos
+2. **Utilizar correctamente los componentes en la aplicación** - Todos funcionando correctamente
+3. **Alcanzar el 50% del contenido de la aplicación** - 55% completado (5/9 páginas)
+4. **Documentar el proceso y problemas enfrentados** - Documentación completa
+5. **Código instalable sin dependencias adicionales** - Solo requiere npm install
 
 ---
 
-## 🏗️ Arquitectura del Proyecto
+## Funcionalidades Implementadas
+
+### Páginas Completadas (5/9 = 55%)
+
+#### 1. Login
+
+- Autenticación de usuarios con validación
+- Navegación condicional según estado de autenticación
+- Persistencia de sesión
+- **Componentes:** ion-input, ion-button, ion-card
+
+#### 2. Onboarding
+
+- Presentación de la app (3 slides informativos)
+- Introducción a funcionalidades principales
+- Skip y navegación entre slides
+- **Componentes:** ion-slides, ion-button
+
+#### 3. Dashboard
+
+- Panel principal con resumen de actividades
+- Acceso rápido a funcionalidades clave
+- Vista general del estado del usuario
+- **Componentes:** ion-card, ion-grid, ion-button
+
+#### 4. Mis Planificaciones (MEJORADA en Parte A)
+
+- Lista completa de planificaciones del usuario
+- **Búsqueda en tiempo real** por título, asignatura, nivel o unidad
+- **Pull to refresh** para actualizar datos
+- Filtros por estado (Todas, Borradores, Completadas)
+- Estados visuales con chips de color
+- Navegación a creación de nueva planificación vía FAB
+- Contador de resultados dinámico
+- **Componentes:** ion-card, ion-fab, ion-chip, ion-segment
+- **Componentes nuevos:** ion-searchbar, ion-refresher
+
+#### 5. Perfil (AMPLIADA en Parte A)
+
+- Información personal completa del usuario
+- Datos del establecimiento educacional (RBD, región, comuna)
+- **6 configuraciones con toggles interactivos:**
+  - Notificaciones generales
+  - Notificaciones push
+  - Modo oscuro
+  - Sincronización automática
+  - Descarga solo con WiFi
+  - Recordatorios
+- Gestión de cuenta (cambiar contraseña, ayuda, acerca de)
+- Cerrar sesión con confirmación visual
+- Persistencia de configuraciones en LocalStorage
+- **Componentes:** ion-list, ion-item, ion-avatar, ion-chip
+- **Componentes nuevos:** ion-toggle, ion-list-header
+
+---
+
+## Componentes Ionic Implementados
+
+### Componentes de Unidades Anteriores:
+
+- ion-input - Campos de entrada de texto (Login)
+- ion-button - Botones de acción (múltiples páginas)
+- ion-card - Tarjetas de contenido (Dashboard, Mis Planificaciones)
+- ion-slides - Carrusel de slides (Onboarding)
+- ion-toolbar - Barras de herramientas (headers)
+- ion-header - Encabezados de página
+- ion-content - Contenedor principal
+- ion-segment - Filtros por pestañas (Mis Planificaciones)
+- ion-fab - Botón flotante (Mis Planificaciones)
+- ion-chip - Etiquetas de estado
+- ion-avatar - Avatar del usuario (Perfil)
+- ion-list / ion-item - Listas básicas
+
+### Componentes NUEVOS (Parte A):
+
+#### 1. ion-searchbar
+
+- **Ubicación:** Mis Planificaciones (toolbar)
+- **Funcionalidad:** Búsqueda en tiempo real con debounce
+- **Implementación:** 
+  - Búsqueda por título, asignatura, nivel y unidad
+  - Placeholder descriptivo
+  - Botón de limpiar búsqueda
+  - Debounce de 300ms para optimizar performance
+- **Ventaja:** Permite encontrar planificaciones rápidamente sin scroll infinito
+
+#### 2. ion-refresher
+
+- **Ubicación:** Mis Planificaciones (contenido)
+- **Funcionalidad:** Pull to refresh para actualizar datos
+- **Implementación:**
+  - Icono y texto personalizado
+  - Spinner de carga
+  - Simulación de actualización de datos
+- **Ventaja:** UX moderna y familiar para usuarios móviles
+
+#### 3. ion-toggle
+
+- **Ubicación:** Perfil (sección de configuraciones)
+- **Funcionalidad:** 6 switches interactivos para configuraciones
+- **Implementación:**
+  - Two-way data binding con [(ngModel)]
+  - Persistencia en LocalStorage
+  - Estado deshabilitado condicional (notificaciones push)
+  - Callbacks individuales para cada toggle
+- **Ventaja:** Control intuitivo de configuraciones de la app
+
+#### 4. ion-list-header
+
+- **Ubicación:** Perfil (múltiples secciones)
+- **Funcionalidad:** Organización visual de secciones
+- **Implementación:**
+  - 4 headers diferentes:
+    - Información Personal
+    - Establecimiento
+    - Configuraciones de la App
+    - Cuenta y Seguridad
+  - Estilo uppercase con mayor peso visual
+- **Ventaja:** Mejora la jerarquía visual y navegabilidad
+
+**Total de componentes nuevos: 4** (supera el requisito de 2+)
+
+---
+
+## Arquitectura del Proyecto
 
 ```
 EduPlanChile/
 ├── src/
 │   ├── app/
-│   │   ├── guards/              # Guards de autenticación
-│   │   │   └── auth.guard.ts
-│   │   ├── pages/               # Páginas de la aplicación
-│   │   │   ├── login/
-│   │   │   ├── onboarding/
-│   │   │   ├── tabs/
-│   │   │   ├── dashboard/
-│   │   │   ├── mis-planificaciones/
-│   │   │   ├── crear-planificacion/
-│   │   │   ├── repositorio/
-│   │   │   ├── comunidad/
-│   │   │   └── perfil/
-│   │   ├── services/            # Servicios compartidos
-│   │   │   ├── auth.service.ts
-│   │   │   ├── storage.service.ts
-│   │   │   └── planificacion.service.ts
-│   │   ├── app-routing.module.ts
-│   │   ├── app.component.ts
-│   │   └── app.module.ts
-│   ├── assets/                  # Recursos estáticos
-│   ├── theme/                   # Estilos globales
-│   └── global.scss             # Estilos globales de la app
-├── angular.json
-├── ionic.config.json
-├── package.json
-└── README.md
+│   │   ├── pages/                  # Páginas de la aplicación
+│   │   │   ├── login/              # Completada (Unidad Anterior)
+│   │   │   ├── onboarding/         # Completada (Unidad Anterior)
+│   │   │   ├── dashboard/          # Completada (Unidad Anterior)
+│   │   │   ├── mis-planificaciones/# MEJORADA (Parte A)
+│   │   │   │   ├── .page.ts        #    + Búsqueda + Refresh
+│   │   │   │   ├── .page.html      #    + ion-searchbar + ion-refresher
+│   │   │   │   └── .page.scss      #    Estilos mejorados
+│   │   │   ├── perfil/             # AMPLIADA (Parte A)
+│   │   │   │   ├── .page.ts        #    + 6 toggles + persistencia
+│   │   │   │   ├── .page.html      #    + ion-toggle + ion-list-header
+│   │   │   │   └── .page.scss      #    + Tema oscuro
+│   │   │   ├── crear-planificacion/# Base creada (Parte B)
+│   │   │   ├── repositorio/        # Pendiente (Parte B)
+│   │   │   ├── comunidad/          # Pendiente (Parte B)
+│   │   │   └── tabs/               # Pendiente (Parte B)
+│   │   │
+│   │   ├── services/               # Servicios de la aplicación
+│   │   │   ├── auth.service.ts     # Autenticación completa
+│   │   │   ├── storage.service.ts  # Almacenamiento local
+│   │   │   └── planificacion.service.ts # Gestión de planificaciones
+│   │   │
+│   │   ├── guards/                 # Guards de navegación
+│   │   │   └── auth.guard.ts       # Protección de rutas privadas
+│   │   │
+│   │   └── app-routing.module.ts   # Configuración de rutas
+│   │
+│   └── theme/
+│       └── variables.css           # Colores MINEDUC (#1976D2)
+│
+├── package.json                    # Dependencias del proyecto
+├── ionic.config.json               # Configuración de Ionic
+└── README.md                       # Este archivo
 ```
 
 ---
 
-## 🗺️ Mapa de Navegación
+## Tecnologías Utilizadas
 
-```
-┌─────────────┐
-│   Login     │ (Pública)
-└─────┬───────┘
-      │
-      ▼
-┌─────────────┐
-│ Onboarding  │ (Pública, 3 slides)
-└─────┬───────┘
-      │
-      ▼
-┌─────────────────────────────────────────┐
-│              Tabs                        │ (Privada, requiere auth)
-├─────────┬──────────┬──────────┬─────────┤
-│Dashboard│Mis Planes│Repositorio│Comunidad│Perfil
-└─────────┴──────────┴──────────┴─────────┘
-```
+- **Framework:** Ionic 7.2.0
+- **Frontend:** Angular 17 (Standalone Components)
+- **Lenguaje:** TypeScript 5.x
+- **Estilos:** SCSS
+- **Capacitor:** Para funcionalidades nativas futuras
+- **Routing:** Lazy Loading para optimización de carga
+- **Almacenamiento:** LocalStorage para persistencia de configuraciones
 
 ---
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
-### Requisitos Previos
+### Prerrequisitos
 
-Asegúrate de tener instalado:
+Antes de comenzar, asegúrate de tener instalado:
 
-1. **Node.js** (versión 18 o superior)
-   - Descarga: https://nodejs.org/
-   - Verifica: `node --version`
+1. **Node.js** (v18 o superior)
+   ```powershell
+   node --version
+   # Debe mostrar v18.x.x o superior
+   ```
 
-2. **npm** (viene con Node.js)
-   - Verifica: `npm --version`
+2. **npm** (v9 o superior - viene con Node.js)
+   ```powershell
+   npm --version
+   # Debe mostrar v9.x.x o superior
+   ```
 
-3. **Ionic CLI** (instalación global)
-   ```bash
+3. **Ionic CLI** (v7 o superior)
+   ```powershell
    npm install -g @ionic/cli
+   ionic --version
+   # Debe mostrar 7.x.x o superior
    ```
 
 ### Pasos de Instalación
 
 #### 1. Clonar el repositorio
 
-```bash
-git clone [URL_DEL_REPOSITORIO]
+```powershell
+git clone https://github.com/TU_USUARIO/EduPlanChile.git
 cd EduPlanChile
 ```
 
 #### 2. Instalar dependencias
 
-```bash
+```powershell
 npm install
 ```
 
-Este comando instalará automáticamente todas las dependencias necesarias especificadas en `package.json`:
-- @angular/core ~18.x
-- @ionic/angular ~8.x
-- swiper (para slides modernos)
-- rxjs (para programación reactiva)
-- Y todas sus dependencias transitivas
+Tiempo estimado: 2-3 minutos
 
-#### 3. Ejecutar la aplicación
+**Nota:** Este comando instalará todas las dependencias necesarias listadas en package.json. No se requiere instalación adicional.
 
-**Modo desarrollo (con hot-reload):**
-```bash
+#### 3. Verificar la instalación
+
+```powershell
+# Verificar que no haya errores
+npm list --depth=0
+```
+
+#### 4. Ejecutar la aplicación
+
+```powershell
 ionic serve
 ```
 
-La aplicación se abrirá automáticamente en tu navegador en `http://localhost:8100`
+**La aplicación se abrirá automáticamente en:**
+- URL: http://localhost:8100
+- Puerto: 8100 (por defecto)
+- Hot Reload: Activado (los cambios se reflejan automáticamente)
 
-**Modo desarrollo con logs detallados:**
-```bash
-ionic serve --verbose
-```
+### Credenciales de Prueba
 
-#### 4. Construir para producción (opcional)
+Para acceder a la aplicación, usa:
 
-```bash
-ionic build --prod
-```
+- **Email:** profesor@eduplan.cl
+- **Contraseña:** 123456
 
-Los archivos compilados estarán en la carpeta `www/`
-
----
-
-## 🔑 Credenciales de Prueba
-
-La aplicación utiliza autenticación simulada para propósitos académicos.
-
-**Puedes usar cualquier combinación de email/contraseña**, por ejemplo:
-
-- **Email:** `profesor@liceo.cl`
-- **Contraseña:** `123456`
-
-El sistema validará que ambos campos no estén vacíos y permitirá el acceso.
+**Nota:** Las credenciales son validadas en el servicio de autenticación mock.
 
 ---
 
-## 🎨 Diseño y Estilos
+## Probando la Aplicación
 
-### Paleta de Colores
+### Flujo Completo de Prueba
 
-La aplicación utiliza los colores oficiales del MINEDUC:
+#### 1. Login
 
-- **Primario:** `#1976D2` (Azul MINEDUC)
-- **Success:** Verde para estados completados
-- **Warning:** Amarillo para borradores
-- **Danger:** Rojo para errores/cerrar sesión
+- Ingresa las credenciales de prueba
+- Verifica que la validación funcione
+- Confirma redirección al Dashboard
 
-### Componentes Ionic Utilizados
+#### 2. Onboarding (si es primera vez)
 
-- `ion-header`, `ion-toolbar`, `ion-title`
-- `ion-content`, `ion-padding`
-- `ion-button`, `ion-icon`
-- `ion-input`, `ion-item`, `ion-label`
-- `ion-card`, `ion-card-header`, `ion-card-content`
-- `ion-tabs`, `ion-tab-bar`, `ion-tab-button`
-- `ion-chip`, `ion-segment`
-- `ion-avatar`, `ion-list`
-- `ion-fab`, `ion-fab-button`
-- `ion-alert`, `ion-loading`
-- `swiper-container`, `swiper-slide` (reemplazo moderno de ion-slides)
+- Desliza entre los 3 slides
+- Prueba el botón "Skip"
+- Avanza con "Siguiente" y "Comenzar"
 
----
+#### 3. Dashboard
 
-## 📱 Funcionalidades Implementadas
+- Verifica que cargue correctamente
+- Observa las tarjetas de acceso rápido
+- Navega a "Mis Planificaciones"
 
-### 1. Sistema de Autenticación
-- Login con validación de campos
-- Persistencia de sesión en localStorage
-- Guard que protege rutas privadas
-- Logout funcional
+#### 4. Mis Planificaciones (MEJORADA)
 
-### 2. Onboarding
-- 3 slides informativos sobre la aplicación
-- Navegación por swipe o botones
-- Opción de saltar directamente al dashboard
+- Verifica que se muestren las planificaciones
+- **NUEVO:** Usa la barra de búsqueda para filtrar
+  - Busca por "Matemáticas"
+  - Busca por "3° Básico"
+  - Limpia la búsqueda con la X
+- **NUEVO:** Desliza hacia abajo para actualizar (Pull to Refresh)
+  - Observa el spinner de carga
+  - Espera la confirmación de actualización
+- Cambia entre filtros (Todas/Borradores/Completadas)
+- Observa los estados con chips de color
+- Prueba el botón flotante "+" (navega a crear)
+- Click en una planificación (mensaje en consola)
+- Verifica el contador de resultados
 
-### 3. Dashboard
-- Saludo personalizado con nombre del usuario
-- 3 tarjetas de estadísticas:
-  - Total de planificaciones
-  - Planificaciones completadas
-  - Planificaciones en borrador
-- Botón de acción rápida para crear nueva planificación
-- Lista de planificaciones recientes (vacía inicialmente)
-- Estado vacío amigable cuando no hay datos
+#### 5. Perfil (AMPLIADA)
 
-### 4. Mis Planificaciones
-- Filtros por estado (Todas/Borradores/Completadas)
-- Lista de planificaciones con información resumida
-- Indicadores visuales de estado con chips de colores
-- Botón FAB para crear nueva planificación
-- Estado vacío con call-to-action
+- Navega desde Dashboard
+- Revisa la información personal completa
+- Verifica datos del establecimiento
+- **NUEVO:** Prueba los 6 toggles de configuración:
+  - Activa/desactiva "Notificaciones"
+  - Nota que "Notificaciones Push" se deshabilita si desactivas "Notificaciones"
+  - Prueba "Modo Oscuro" (verás cambios visuales)
+  - Prueba "Sincronización Automática"
+  - Prueba "Descarga solo con WiFi"
+  - Prueba "Recordatorios"
+- Abre la consola del navegador (F12) y observa los logs de cada toggle
+- **NUEVO:** Recarga la página - verifica que las configuraciones persisten
+- Observa las secciones organizadas con headers
+- Prueba "Cerrar Sesión"
 
-### 5. Repositorio
-- Lista de recursos disponibles
-- Categorías: Plantillas, Objetivos, Indicadores, Recursos Didácticos
-- Preparado para integración futura con contenido MINEDUC
+### Verificación de Componentes Nuevos
 
-### 6. Comunidad
-- Vista de foro simplificada
-- Publicaciones de ejemplo de otros docentes
-- Preparado para sistema de comentarios y likes
+- **ion-searchbar:** Barra de búsqueda en Mis Planificaciones  
+- **ion-refresher:** Pull to refresh en Mis Planificaciones  
+- **ion-toggle:** 6 switches en Perfil - Configuraciones  
+- **ion-list-header:** 4 headers de sección en Perfil  
 
-### 7. Perfil
-- Información del usuario (nombre, email, rol)
-- Avatar personalizable
-- Opciones de configuración
-- Botón de cerrar sesión funcional
+### Verificación de Persistencia
 
-### 8. Navegación por Tabs
-- 5 tabs en la parte inferior
-- Iconos intuitivos para cada sección
-- Indicador visual de tab activo
-- Navegación fluida entre secciones
+1. Configura los toggles en Perfil
+2. Navega a Dashboard
+3. Vuelve a Perfil
+4. Verifica que los toggles mantienen su estado
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## Problemas Enfrentados y Soluciones
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| Ionic | 8.x | Framework móvil híbrido |
-| Angular | 18.x | Framework frontend |
-| TypeScript | 5.x | Lenguaje de programación |
-| Capacitor | Incluido | Para funcionalidades nativas |
-| Swiper | Latest | Carrusel de slides moderno |
-| RxJS | 7.x | Programación reactiva |
-| SCSS | - | Preprocesador CSS |
+### Problema 1: Standalone Components vs Modules
 
----
+**Descripción:**  
+El proyecto usa standalone components (patrón moderno de Angular 17), pero algunos tutoriales antiguos de Ionic usan NgModules tradicionales, causando confusión inicial.
 
-## 🐛 Problemas Enfrentados y Soluciones
-
-### 1. **Componentes Standalone vs NgModules**
-
-**Problema:** El CLI de Ionic generaba componentes con configuración standalone implícita, causando conflictos con la arquitectura de módulos tradicional.
-
-**Solución:** 
-- Se optó por adoptar la arquitectura **standalone components** (moderna en Angular 14+)
-- Se eliminó el uso de `declarations: []` en módulos
-- Se utilizó `imports: []` para incluir componentes standalone
-- Cada página mantiene su módulo wrapper para lazy loading
-
-**Código aplicado:**
-```typescript
-@Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
-})
-export class LoginPage { }
-```
-
----
-
-### 2. **Deprecación de ion-slides**
-
-**Problema:** `ion-slides` fue eliminado en Ionic 6+, causando errores de compilación en la página de Onboarding.
-
-**Solución:**
-- Instalación de Swiper: `npm install swiper`
-- Reemplazo de `<ion-slides>` por `<swiper-container>`
-- Registro de Web Components con `register()` de swiper
-- Uso de `CUSTOM_ELEMENTS_SCHEMA` para permitir elementos personalizados
-
-**Código aplicado:**
-```typescript
-import { register } from 'swiper/element/bundle';
-register();
-
-@Component({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
-```
-
----
-
-### 3. **Binding de ngModel en componentes standalone**
-
-**Problema:** Error `Can't bind to 'ngModel'` en ion-segment de Mis Planificaciones.
-
-**Solución:**
-- Importar explícitamente `FormsModule` en el decorador del componente standalone
-- Angular requiere FormsModule para directivas como `[(ngModel)]`
-
-**Código aplicado:**
+**Solución:**  
+Se adoptó completamente el patrón standalone:
 ```typescript
 @Component({
   standalone: true,
@@ -345,644 +363,341 @@ register();
 })
 ```
 
+**Lección aprendida:** Los standalone components simplifican la arquitectura y reducen el boilerplate. Siempre revisar la versión de Angular del proyecto antes de seguir tutoriales.
+
 ---
 
-### 4. **Rutas anidadas en Tabs**
+### Problema 2: FormsModule no Importado para ngModel
 
-**Problema:** La navegación `/tabs/dashboard` no se resolvía correctamente.
+**Descripción:**  
+Al agregar [(ngModel)] en los toggles y searchbar, aparecía el error:
+```
+Can't bind to 'ngModel' since it isn't a known property
+```
 
-**Solución:**
-- Configuración correcta de rutas hijas en `tabs-routing.module.ts`
-- Uso de `children: []` para definir subrutas
-- Ruta por defecto con `redirectTo: 'dashboard'`
-
-**Código aplicado:**
+**Solución:**  
+Se agregó FormsModule a los imports del componente standalone:
 ```typescript
-const routes: Routes = [
-  {
-    path: '',
-    component: TabsPage,
-    children: [
-      { path: 'dashboard', loadChildren: ... },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-    ]
+imports: [IonicModule, CommonModule, FormsModule]
+```
+
+**Lección aprendida:** En standalone components, cada módulo necesario debe importarse explícitamente en el componente, no hay imports globales como en NgModules.
+
+---
+
+### Problema 3: Persistencia de Configuraciones
+
+**Descripción:**  
+Las configuraciones de los toggles se perdían al navegar entre páginas o recargar la app.
+
+**Solución:**  
+Se implementó persistencia usando LocalStorage:
+```typescript
+// Guardar
+guardarConfiguraciones() {
+  localStorage.setItem('app-configuraciones', JSON.stringify(this.configuraciones));
+}
+
+// Cargar
+cargarConfiguraciones() {
+  const config = localStorage.getItem('app-configuraciones');
+  if (config) {
+    this.configuraciones = JSON.parse(config);
   }
-];
+}
 ```
 
----
-
-### 5. **Warnings de Sass @import**
-
-**Problema:** Warnings de deprecación al usar `@import` para estilos de Swiper.
-
-**Solución:**
-- Mantener `@import` ya que `@use` requiere estar al inicio del archivo
-- Los warnings no afectan la funcionalidad
-- Solución definitiva: migrar a `@use` en versión futura de Sass
+**Lección aprendida:** Para datos de configuración del usuario, LocalStorage es suficiente y más rápido que soluciones más complejas como IndexedDB.
 
 ---
 
-### 6. **Persistencia de autenticación**
+### Problema 4: Debounce en Searchbar
 
-**Problema:** Al recargar la página, la sesión se perdía.
+**Descripción:**  
+Al escribir en el searchbar, se ejecutaba el filtrado en cada tecla presionada, causando lentitud con muchos resultados.
 
-**Solución:**
-- Uso de `localStorage` para guardar token de usuario
-- Inicialización del `BehaviorSubject` desde localStorage en el constructor
-- Verificación de sesión en el `AuthGuard`
+**Solución:**  
+Se agregó debounce de 300ms en el ion-searchbar:
+```html
+<ion-searchbar 
+  [debounce]="300"
+  (ionInput)="handleSearch($event)">
+</ion-searchbar>
+```
 
-**Código aplicado:**
+**Lección aprendida:** El debounce es esencial para búsquedas en tiempo real. 300ms es un buen balance entre responsividad y performance.
+
+---
+
+### Problema 5: Refresher No se Completaba
+
+**Descripción:**  
+Al implementar el pull to refresh inicialmente, el spinner quedaba cargando infinitamente.
+
+**Solución:**  
+Se debe llamar a event.target.complete() cuando termina la carga:
 ```typescript
-constructor() {
-  const storedUser = localStorage.getItem('currentUser');
-  this.currentUserSubject = new BehaviorSubject<User | null>(
-    storedUser ? JSON.parse(storedUser) : null
+async handleRefresh(event: any) {
+  this.loadPlanificaciones();
+  event.target.complete(); // CRUCIAL
+}
+```
+
+**Lección aprendida:** Todos los eventos de Ionic requieren confirmación explícita de completado, especialmente los gestos de usuario como refresh.
+
+---
+
+### Problema 6: Toggles Deshabilitados Condicionalmente
+
+**Descripción:**  
+Se necesitaba que "Notificaciones Push" se deshabilitara si "Notificaciones" generales estaba apagada.
+
+**Solución:**  
+Se usó el atributo [disabled] con binding condicional:
+```html
+<ion-toggle 
+  [(ngModel)]="configuraciones.notificacionesPush"
+  [disabled]="!configuraciones.notificaciones">
+</ion-toggle>
+```
+
+**Lección aprendida:** Los atributos dinámicos de Ionic se bindean con [atributo]="condicion", permitiendo lógica condicional en el template.
+
+---
+
+### Problema 7: Iconos de Ionicons no se Mostraban
+
+**Descripción:**  
+Algunos iconos no aparecían correctamente al usar nombres incorrectos o desactualizados.
+
+**Solución:**  
+Se consultó la documentación oficial de Ionicons v7:
+- Sitio web: https://ionic.io/ionicons
+- Se usaron nombres exactos: name="search-outline", name="chevron-forward"
+
+**Lección aprendida:** Ionicons se actualiza frecuentemente. Siempre verificar en la documentación oficial la versión compatible con tu versión de Ionic.
+
+---
+
+### Problema 8: Estados de Planificaciones Inconsistentes
+
+**Descripción:**  
+Los colores y nombres de estados no coincidían entre el servicio y la vista.
+
+**Solución:**  
+Se crearon métodos helper centralizados:
+```typescript
+getColorEstado(estado: string): string {
+  switch(estado) {
+    case 'completada': return 'success';
+    case 'borrador': return 'warning';
+    default: return 'medium';
+  }
+}
+```
+
+**Lección aprendida:** Centralizar la lógica de presentación en métodos del componente mejora la mantenibilidad y evita inconsistencias.
+
+---
+
+## Guía de Estilo
+
+### Colores Principales
+
+El proyecto utiliza la paleta de colores oficial del MINEDUC:
+
+```css
+:root {
+  --ion-color-primary: #1976D2;
+  --ion-color-primary-rgb: 25, 118, 210;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #1565C0;
+  --ion-color-primary-tint: #42A5F5;
+}
+```
+
+### Convenciones de Código
+
+**TypeScript:** 
+- Variables y métodos: camelCase (ej: terminoBusqueda, handleRefresh())
+- Clases de componentes: PascalCase (ej: MisPlanificacionesPage)
+- Interfaces: PascalCase (ej: Planificacion, User)
+
+**Archivos:** 
+- Kebab case (ej: mis-planificaciones.page.ts)
+- Extensiones: .page.ts, .page.html, .page.scss
+
+**Estructura de Componentes:**
+- Properties primero
+- Constructor
+- Lifecycle hooks (ngOnInit, etc.)
+- Métodos públicos
+- Métodos privados/helpers
+
+---
+
+## Recursos de Aprendizaje
+
+### Documentación Oficial
+
+- Documentación de Ionic: https://ionicframework.com/docs
+- Guía de Angular: https://angular.io/docs
+- Ionicons: https://ionic.io/ionicons
+- TypeScript Handbook: https://www.typescriptlang.org/docs/
+
+### Componentes Ionic Usados
+
+- ion-searchbar: https://ionicframework.com/docs/api/searchbar
+- ion-refresher: https://ionicframework.com/docs/api/refresher
+- ion-toggle: https://ionicframework.com/docs/api/toggle
+- ion-list-header: https://ionicframework.com/docs/api/list-header
+
+---
+
+## Detalles Técnicos de Implementación
+
+### Búsqueda en Tiempo Real
+
+```typescript
+get planificacionesFiltradas() {
+  let resultado = this.planificaciones;
+
+  // Filtrar por estado
+  if (this.filtro !== 'todas') {
+    resultado = resultado.filter(p => p.estado === this.filtro);
+  }
+
+  // Filtrar por búsqueda
+  if (this.terminoBusqueda.trim() !== '') {
+    const termino = this.terminoBusqueda.toLowerCase();
+    resultado = resultado.filter(p => 
+      p.titulo.toLowerCase().includes(termino) ||
+      p.asignatura.toLowerCase().includes(termino) ||
+      p.nivel.toLowerCase().includes(termino) ||
+      p.unidad.toLowerCase().includes(termino)
+    );
+  }
+
+  return resultado;
+}
+```
+
+### Persistencia de Configuraciones
+
+```typescript
+// Guardar en LocalStorage
+guardarConfiguraciones() {
+  localStorage.setItem('app-configuraciones', 
+    JSON.stringify(this.configuraciones)
   );
 }
-```
 
----
-
-### 7. **Hot Reload en desarrollo**
-
-**Problema:** Algunos cambios no se reflejaban automáticamente.
-
-**Solución:**
-- Reiniciar servidor con `Ctrl+C` y `ionic serve`
-- Limpiar caché con `Remove-Item -Recurse -Force .angular`
-- Usar `ionic serve --verbose` para debugging
-
----
-
-## 💭 Consideraciones del Desarrollo
-
-### Contexto del Proyecto
-
-Este proyecto se desarrolló como primera experiencia práctica con Ionic Framework y arquitectura móvil híbrida. El objetivo académico era crear una **cáscara de navegación funcional** que implementara el mapa de navegación diseñado previamente, sin necesidad de lógica de negocio compleja.
-
-### Decisiones Técnicas Tomadas
-
-#### 1. Arquitectura: Standalone Components vs NgModules
-
-**Decisión:** Optar por Standalone Components (Angular 14+)
-
-**Contexto:** Durante la creación inicial del proyecto, el CLI de Ionic generaba componentes con una configuración implícita de standalone que causaba conflictos con la arquitectura tradicional de NgModules.
-
-**Razonamiento:**
-- Standalone components es la dirección futura de Angular
-- Menos boilerplate y código más limpio
-- Imports explícitos facilitan el entendimiento
-- Mejor preparado para actualizaciones futuras del framework
-
-**Impacto:** Cambió la estructura de cada página, requiriendo imports explícitos en el decorador `@Component` en lugar de declarations en módulos.
-
-**Aprendizaje:** La arquitectura moderna de Angular simplifica el desarrollo pero requiere un cambio de mentalidad sobre cómo se organizan los componentes.
-
----
-
-#### 2. Manejo de Slides: Migración de ion-slides a Swiper
-
-**Decisión:** Usar Swiper.js en lugar de ion-slides
-
-**Contexto:** La página de Onboarding originalmente usaba `<ion-slides>` que fue deprecado en Ionic 6.
-
-**Desafío:** Error de compilación: `'ion-slides' is not a known element`
-
-**Proceso de solución:**
-1. Investigación en documentación oficial de Ionic
-2. Descubrimiento de que ion-slides fue removido
-3. Instalación de Swiper: `npm install swiper`
-4. Implementación con Web Components
-5. Registro de Swiper: `register()` from 'swiper/element/bundle'
-6. Uso de `CUSTOM_ELEMENTS_SCHEMA` para elementos custom
-
-**Código implementado:**
-```typescript
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { register } from 'swiper/element/bundle';
-
-register(); // Registra componentes Swiper globalmente
-
-@Component({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
-```
-
-**Aprendizaje:** Las tecnologías web evolucionan rápidamente. Es importante consultar documentación actualizada y estar preparado para migraciones.
-
----
-
-#### 3. Gestión de Estado: BehaviorSubject vs Simple Variables
-
-**Decisión:** Usar RxJS BehaviorSubject para estado reactivo
-
-**Contexto:** Necesidad de compartir el estado de autenticación entre componentes y mantener la UI sincronizada.
-
-**Razonamiento:**
-- Patrón observable permite suscripciones reactivas
-- BehaviorSubject mantiene el valor actual accesible síncronamente
-- Facilita la implementación futura de features como notificaciones en tiempo real
-
-**Implementación:**
-```typescript
-private currentUserSubject: BehaviorSubject<User | null>;
-public currentUser: Observable<User | null>;
-
-constructor() {
-  const storedUser = localStorage.getItem('currentUser');
-  this.currentUserSubject = new BehaviorSubject<User | null>(
-    storedUser ? JSON.parse(storedUser) : null
-  );
-  this.currentUser = this.currentUserSubject.asObservable();
+// Cargar al inicializar
+ngOnInit() {
+  const config = localStorage.getItem('app-configuraciones');
+  if (config) {
+    this.configuraciones = JSON.parse(config);
+  }
 }
 ```
 
-**Aprendizaje:** La programación reactiva con RxJS es poderosa pero requiere comprender conceptos como observables, subjects y suscripciones.
-
----
-
-#### 4. Persistencia: localStorage vs Capacitor Storage
-
-**Decisión:** Usar localStorage con abstracción en StorageService
-
-**Contexto:** Necesidad de persistir sesión del usuario entre recargas.
-
-**Razonamiento:**
-- localStorage es suficiente para la fase de cáscara
-- StorageService provee abstracción que facilita migración futura
-- Capacitor Storage puede implementarse después sin cambiar la interfaz
-
-**Ventajas:**
-- Implementación inmediata sin configuración adicional
-- Compatible con navegador para desarrollo
-- Fácil de probar y debuggear
-
-**Preparado para el futuro:**
-```typescript
-// Actual
-localStorage.setItem(key, value);
-
-// Futuro (mismo código del servicio)
-await Preferences.set({ key, value }); // Capacitor
-```
-
-**Aprendizaje:** Abstraer dependencias desde el inicio facilita migraciones futuras sin refactoring masivo.
-
----
-
-#### 5. Routing: Lazy Loading para Optimización
-
-**Decisión:** Implementar lazy loading en todas las rutas
-
-**Contexto:** Ionic recomienda lazy loading para aplicaciones escalables.
-
-**Implementación:**
-```typescript
-{
-  path: 'dashboard',
-  loadChildren: () => import('./pages/dashboard/dashboard.module')
-    .then(m => m.DashboardPageModule)
-}
-```
-
-**Beneficios medidos:**
-- Bundle inicial: 4.98 MB
-- Páginas individuales: 13-18 KB cada una
-- Carga inicial más rápida al cargar solo lo necesario
-
-**Aprendizaje:** El lazy loading es esencial para aplicaciones móviles donde el rendimiento y el uso de datos son críticos.
-
----
-
-### Desafíos Técnicos Superados
-
-#### Desafío 1: Configuración Inicial del Entorno
-
-**Problema:** Primera vez trabajando con Ionic CLI y su ecosistema.
-
-**Manifestación:**
-- Confusión entre Ionic, Angular, Capacitor y Cordova
-- Dudas sobre cuál template usar (blank, tabs, sidemenu)
-- Incertidumbre sobre standalone vs módulos
-
-**Solución:**
-1. Lectura de documentación oficial de Ionic
-2. Comparación de templates disponibles
-3. Elección de "blank" para control total
-4. Iteración y aprendizaje progresivo
-
-**Tiempo invertido:** ~2 horas de setup y comprensión
-
-**Lección:** Invertir tiempo en setup correcto ahorra horas de refactoring posterior.
-
----
-
-#### Desafío 2: Errores de Compilación con Standalone
-
-**Problema:** `Component is standalone, and cannot be declared in an NgModule`
-
-**Contexto:** El CLI generaba componentes standalone implícitamente pero los módulos intentaban declararlos.
-
-**Intentos de solución:**
-1. ❌ Intentar forzar NgModules tradicionales
-2. ❌ Eliminar decorador `@Component`
-3. ✅ Adoptar arquitectura standalone completamente
-
-**Solución final:**
-```typescript
-// En módulos, importar en lugar de declarar
-@NgModule({
-  imports: [
-    LoginPageRoutingModule,
-    LoginPage  // Importado, no declarado
-  ]
-})
-```
-
-**Tiempo invertido:** ~3 horas de debugging
-
-**Lección:** A veces es mejor adoptar el patrón que el framework sugiere que luchar contra él.
-
----
-
-#### Desafío 3: Binding de ngModel en Componentes Standalone
-
-**Problema:** `Can't bind to 'ngModel' since it isn't a known property`
-
-**Contexto:** FormsModule no estaba disponible en componente standalone.
-
-**Diagnóstico:**
-- Componentes standalone no heredan módulos del padre
-- Cada componente debe importar sus dependencias explícitamente
-
-**Solución:**
-```typescript
-@Component({
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]  // ← Explícito
-})
-```
-
-**Tiempo invertido:** ~30 minutos
-
-**Lección:** Con standalone, cada componente es autocontenido. Los imports deben ser explícitos.
-
----
-
-#### Desafío 4: Navegación Anidada con Tabs
-
-**Problema:** `Cannot match any routes. URL Segment: 'tabs/dashboard'`
-
-**Contexto:** La estructura de tabs con rutas hijas no estaba configurada correctamente.
-
-**Diagnóstico:**
-1. Verificación de que todas las páginas existían
-2. Revisión de paths en routing modules
-3. Identificación de error en configuración de children
-
-**Solución:**
-```typescript
-{
-  path: '',
-  component: TabsPage,
-  children: [  // ← Rutas hijas necesarias
-    {
-      path: 'dashboard',
-      loadChildren: () => import(...)
-    },
-    {
-      path: '',
-      redirectTo: 'dashboard',  // ← Ruta por defecto
-      pathMatch: 'full'
-    }
-  ]
-}
-```
-
-**Tiempo invertido:** ~1 hora
-
-**Lección:** El routing anidado requiere configuración explícita de children y rutas por defecto.
-
----
-
-#### Desafío 5: Persistencia de Sesión
-
-**Problema:** Al recargar el navegador, la sesión se perdía y redirigía a login.
-
-**Contexto:** El estado del usuario solo existía en memoria.
-
-**Solución implementada:**
-
-**1. Guardar en localStorage al hacer login:**
-```typescript
-login(email: string, password: string): Observable<boolean> {
-  const user = { id: '1', email, nombre: 'Profesor', ... };
-  localStorage.setItem('currentUser', JSON.stringify(user));
-  this.currentUserSubject.next(user);
-  return of(true);
-}
-```
-
-**2. Recuperar al inicializar el servicio:**
-```typescript
-constructor() {
-  const storedUser = localStorage.getItem('currentUser');
-  this.currentUserSubject = new BehaviorSubject<User | null>(
-    storedUser ? JSON.parse(storedUser) : null
-  );
-}
-```
-
-**3. Verificar en el guard:**
-```typescript
-canActivate(): boolean {
-  return this.authService.isAuthenticated();
-}
-```
-
-**Tiempo invertido:** ~45 minutos
-
-**Lección:** La persistencia de estado es crucial para UX. localStorage es simple y efectivo para MVP.
-
----
-
-### Estrategias de Debugging Utilizadas
-
-#### 1. Console Logs Estratégicos
-
-Usados para trazar el flujo de navegación:
-```typescript
-console.log('🔑 Login attempt:', email);
-console.log('✅ User authenticated:', user);
-console.log('🚀 Navigating to:', route);
-```
-
-#### 2. Chrome DevTools
-
-**Network tab:**
-- Verificar carga de lazy-loaded chunks
-- Identificar archivos faltantes
-
-**Console tab:**
-- Errores de compilación Angular
-- Warnings de Ionic
-
-**Application tab:**
-- Inspeccionar localStorage
-- Verificar persistencia de datos
-
-#### 3. Ionic DevTools
-
-**ionic serve --verbose:**
-- Logs detallados de compilación
-- Identificación de módulos faltantes
-
-**Hot Reload:**
-- Desarrollo iterativo rápido
-- Feedback inmediato de cambios
-
-#### 4. Approach Sistemático
-
-Al enfrentar errores:
-1. **Leer el error completo** (no solo la primera línea)
-2. **Identificar el archivo y línea exacta**
-3. **Googlear el código de error** (ej: NG8002)
-4. **Consultar documentación oficial**
-5. **Probar solución incremental**
-6. **Verificar que no rompe otras partes**
-
----
-
-### Lecciones Aprendidas
-
-#### Técnicas
-
-1. **Standalone components simplifican el código** pero requieren imports explícitos en cada componente.
-
-2. **Lazy loading es esencial** para aplicaciones móviles escalables, aunque agrega complejidad en la configuración inicial.
-
-3. **RxJS y observables** son poderosos para estado reactivo pero tienen curva de aprendizaje.
-
-4. **Ionic evoluciona rápido**: Componentes como ion-slides se deprecan. Importante mantenerse actualizado.
-
-5. **TypeScript estricto ayuda**: Los tipos previenen errores antes de ejecutar.
-
-#### Metodológicas
-
-1. **Leer documentación oficial primero** ahorra tiempo vs. depender solo de tutoriales externos.
-
-2. **Desarrollo incremental**: Crear una página, probar, luego siguiente. No todo a la vez.
-
-3. **Git commits frecuentes**: Permiten revertir si algo se rompe.
-
-4. **Abstracciones tempranas** (como StorageService) facilitan cambios futuros.
-
-5. **Testing manual sistemático**: Probar cada flujo después de cada cambio importante.
-
-#### De Proceso
-
-1. **El setup inicial toma tiempo** pero vale la pena hacerlo bien.
-
-2. **Los errores son oportunidades de aprendizaje**: Cada error resuelto profundiza el entendimiento.
-
-3. **La iteración es natural**: No esperaba usar standalone components al inicio, pero resultó ser la mejor decisión.
-
-4. **Documentar mientras desarrollas** es más fácil que documentar al final.
-
-5. **Pedir ayuda está bien**: Consultar documentación, foros y recursos es parte del desarrollo profesional.
-
----
-
-### Métricas del Desarrollo
-
-**Tiempo total invertido:** ~12 horas
-
-**Desglose:**
-- Setup inicial y aprendizaje: 2 horas
-- Creación de servicios y guards: 1 hora
-- Desarrollo de páginas: 4 horas
-- Debugging y resolución de errores: 3 horas
-- Documentación: 2 horas
-
-**Líneas de código:**
-- TypeScript: ~1,500 líneas
-- HTML: ~800 líneas
-- SCSS: ~600 líneas
-- Total: ~2,900 líneas
-
-**Archivos creados:** 45+ archivos
-
-**Commits realizados:** 1 commit principal (entrega final)
-
----
-
-### Reflexión Final
-
-Este proyecto fue una excelente introducción al desarrollo móvil híbrido con Ionic/Angular. Los principales desafíos no fueron técnicos en sí, sino conceptuales: entender la arquitectura de componentes standalone, el flujo de routing anidado, y la programación reactiva con RxJS.
-
-La decisión de adoptar standalone components, aunque inicialmente confusa, resultó ser acertada ya que:
-- Es el futuro de Angular
-- El código es más limpio y mantenible
-- Los imports explícitos hacen el código más autodocumentado
-
-El uso de servicios con observables preparó la aplicación para ser escalable, permitiendo agregar funcionalidades complejas en el futuro sin refactoring mayor.
-
-La experiencia de enfrentar y resolver errores de compilación, routing, y configuración fortaleció la capacidad de debugging y búsqueda de soluciones, habilidades esenciales para cualquier desarrollador.
-
-El proyecto cumple exitosamente con el objetivo de crear una **cáscara de navegación completa y funcional**, lista para ser poblada con lógica de negocio y contenido en iteraciones futuras.
-
----
-
-## 📂 Estructura de Archivos Clave
-
-### Configuración Principal
-
-- **`package.json`**: Dependencias y scripts del proyecto
-- **`angular.json`**: Configuración de Angular CLI
-- **`ionic.config.json`**: Configuración de Ionic
-- **`tsconfig.json`**: Configuración de TypeScript
-
-### Servicios Core
-
-- **`auth.service.ts`**: Gestión de autenticación, login, logout, estado de usuario
-- **`storage.service.ts`**: Abstracción de localStorage para persistencia
-- **`planificacion.service.ts`**: CRUD de planificaciones con RxJS
-
-### Guards
-
-- **`auth.guard.ts`**: Protección de rutas privadas, redirección a login
-
-### Páginas
-
-Cada página sigue la estructura:
-```
-nombre-pagina/
-├── nombre-pagina.page.ts        # Lógica del componente
-├── nombre-pagina.page.html      # Template
-├── nombre-pagina.page.scss      # Estilos
-├── nombre-pagina-routing.module.ts  # Rutas
-└── nombre-pagina.module.ts      # Módulo wrapper
+### Pull to Refresh
+
+```html
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    pullingText="Desliza para actualizar"
+    refreshingSpinner="circles"
+    refreshingText="Actualizando...">
+  </ion-refresher-content>
+</ion-refresher>
 ```
 
 ---
 
-## 🧪 Testing
+## Información del Autor
 
-### Pruebas Manuales Realizadas
-
-1. **Flujo de Autenticación**
-   - ✅ Login con campos vacíos muestra alerta
-   - ✅ Login exitoso redirige a Onboarding
-   - ✅ Sesión persiste al recargar navegador
-   - ✅ Logout cierra sesión correctamente
-
-2. **Navegación**
-   - ✅ Todos los tabs son accesibles
-   - ✅ El tab activo se resalta visualmente
-   - ✅ Transiciones son fluidas
-   - ✅ Botón atrás del navegador funciona correctamente
-
-3. **Responsive Design**
-   - ✅ Funciona en móvil (simulado)
-   - ✅ Funciona en tablet
-   - ✅ Funciona en escritorio
-
-### Cómo Probar
-
-```bash
-# Ejecutar en navegador
-ionic serve
-
-# Probar en modo móvil
-# 1. Abre DevTools (F12)
-# 2. Toggle device toolbar (Ctrl+Shift+M)
-# 3. Selecciona un dispositivo móvil
-```
+**Nombre:** Brian CM
+**Universidad:** UNIACC  
+**Curso:** Taller de Dispositivos Móviles 
+**Profesor** José Luis Pino Cofre 
+**Proyecto:** EduPlan Chile  
+**Periodo:** 2025  
+**Versión Actual:** 1.0.1 - Parte A
 
 ---
 
-## 📱 Próximos Pasos (Futuras Iteraciones)
+## Licencia
 
-### Funcionalidades Planeadas
-
-1. **Crear Planificación (Completa)**
-   - Formulario con validaciones
-   - Selector de asignatura y nivel
-   - Selector de objetivos de aprendizaje (OA)
-   - Generación automática basada en currículum MINEDUC
-
-2. **Integración con API**
-   - Backend con base de datos real
-   - Autenticación JWT
-   - CRUD completo de planificaciones
-
-3. **Repositorio de Contenido**
-   - Descarga de documentos PDF
-   - Plantillas editables
-   - Búsqueda y filtros avanzados
-
-4. **Comunidad**
-   - Sistema de publicaciones completo
-   - Comentarios y likes
-   - Compartir planificaciones
-
-5. **Sincronización en la nube**
-   - Firebase/Supabase para backend
-   - Sincronización offline-first
-   - Notificaciones push
-
-6. **Exportación**
-   - Generar PDF de planificaciones
-   - Exportar a Word
-   - Compartir por email
+Derechos reservados a nombre de BrianCM
 
 ---
 
-## 📄 Licencia
+## Agradecimientos
 
-Este proyecto es de uso académico para la Universidad UNIACC.
-
----
-
-## 👨‍💻 Autor
-
-**Brian Hernández**
-- GitHub: [tu-usuario]
-- Email: [tu-email]
-- LinkedIn: [tu-perfil]
+- A los profesores de UNIACC por la guía en el desarrollo móvil, en especial a José Luis Pino Cofre y Felipe Montenegro
+- A mi madre P.M. y mi novia G.G.
+- A la comunidad de Ionic por la excelente documentación
+- Al MINEDUC por proporcionar el marco curricular educativo chileno
+- A los compañeros de curso por el feedback y apoyo
 
 ---
 
-## 🙏 Agradecimientos
+## Soporte y Contacto
 
-- Profesor [Nombre] por la guía y retroalimentación
-- Comunidad de Ionic Framework
-- Documentación oficial de Angular
-- MINEDUC por los estándares curriculares
+### Si encuentras algún problema:
 
----
+1. Revisa la sección "Problemas Enfrentados" más arriba
+2. Consulta la documentación oficial de Ionic/Angular
+3. Verifica la consola del navegador (F12) para errores específicos
+4. Abre un issue en GitHub (si aplica)
 
-## 📞 Soporte
+### Errores Comunes y Soluciones Rápidas:
 
-Si tienes problemas para ejecutar el proyecto:
+**Error:** Can't bind to 'ngModel'  
+**Solución:** Asegúrate de importar FormsModule en el componente
 
-1. Verifica que tengas Node.js 18+ instalado
-2. Elimina `node_modules` y ejecuta `npm install` nuevamente
-3. Limpia caché: `npm cache clean --force`
-4. Revisa la sección "Problemas Enfrentados" de este README
+**Error:** No provider for...  
+**Solución:** Verifica que el servicio esté en providers de app.config.ts
 
----
+**Error:** La app no carga  
+**Solución:** Ejecuta npm install y luego ionic serve nuevamente
 
-## 📚 Referencias
-
-- [Ionic Documentation](https://ionicframework.com/docs)
-- [Angular Documentation](https://angular.io/docs)
-- [Swiper Documentation](https://swiperjs.com/)
-- [Currículum Nacional MINEDUC](https://www.curriculumnacional.cl/)
+**Error:** Los toggles no persisten  
+**Solución:** Abre la consola y verifica que no haya errores de LocalStorage
 
 ---
 
-**Versión:** 1.0.0  
-**Última actualización:** Noviembre 2025  
-**Estado:** ✅ Cáscara de navegación completa y funcional
+## Estadísticas del Proyecto
+
+- Páginas completadas: 5/9 (55%)
+- Componentes Ionic usados: 15+
+- Componentes nuevos (Parte A): 4
+- Servicios implementados: 3
+- Guards: 1
+- Líneas de código: Aprox. 1,000
+- Tiempo de desarrollo: Aprox. 18 horas
+
+---
+
+## Checklist de Entrega
+
+---
+
+**Última actualización:** Diciembre 2025  
+**Versión:** 1.0.1 - Parte A Completada  
+
+---
+
+## Resumen Ejecutivo
+
+### Innovaciones Destacadas:
+
+- Búsqueda en tiempo real multi-criterio
+- Persistencia de configuraciones de usuario
+- Pull to refresh con feedback visual
+- 6 configuraciones interactivas con toggles
+- Organización mejorada con list-headers
+- Código limpio y bien documentado
+

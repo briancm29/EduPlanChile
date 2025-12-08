@@ -1,80 +1,132 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { StorageService } from './storage.service';
+import { Observable, of } from 'rxjs';
 
-// Interface para una planificación
 export interface Planificacion {
   id: string;
   titulo: string;
   asignatura: string;
   nivel: string;
   unidad: string;
-  objetivos: string[];
+  estado: 'borrador' | 'completada';
   fechaCreacion: Date;
-  estado: 'borrador' | 'completada' | 'revisada';
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanificacionService {
-  private planificacionesSubject: BehaviorSubject<Planificacion[]>;
-  public planificaciones: Observable<Planificacion[]>;
-  private readonly STORAGE_KEY = 'planificaciones';
 
-  constructor(private storageService: StorageService) {
-    this.planificacionesSubject = new BehaviorSubject<Planificacion[]>([]);
-    this.planificaciones = this.planificacionesSubject.asObservable();
-    this.loadPlanificaciones();
-  }
+  // Datos mock de planificaciones
+  private planificacionesMock: Planificacion[] = [
+    {
+      id: '1',
+      titulo: 'Los Números hasta el 1000',
+      asignatura: 'Matemáticas',
+      nivel: '3° Básico',
+      unidad: 'Unidad 1: Numeración',
+      estado: 'completada',
+      fechaCreacion: new Date('2024-03-15')
+    },
+    {
+      id: '2',
+      titulo: 'Comprensión Lectora de Textos Narrativos',
+      asignatura: 'Lenguaje y Comunicación',
+      nivel: '4° Básico',
+      unidad: 'Unidad 2: Lectura y Escritura',
+      estado: 'completada',
+      fechaCreacion: new Date('2024-03-18')
+    },
+    {
+      id: '3',
+      titulo: 'El Sistema Solar y los Planetas',
+      asignatura: 'Ciencias Naturales',
+      nivel: '5° Básico',
+      unidad: 'Unidad 3: Tierra y Universo',
+      estado: 'borrador',
+      fechaCreacion: new Date('2024-03-20')
+    },
+    {
+      id: '4',
+      titulo: 'Civilizaciones Precolombinas de Chile',
+      asignatura: 'Historia y Geografía',
+      nivel: '6° Básico',
+      unidad: 'Unidad 1: Pueblos Originarios',
+      estado: 'borrador',
+      fechaCreacion: new Date('2024-03-22')
+    },
+    {
+      id: '5',
+      titulo: 'Adición y Sustracción de Fracciones',
+      asignatura: 'Matemáticas',
+      nivel: '5° Básico',
+      unidad: 'Unidad 2: Operaciones con Fracciones',
+      estado: 'completada',
+      fechaCreacion: new Date('2024-03-25')
+    },
+    {
+      id: '6',
+      titulo: 'El Ciclo del Agua',
+      asignatura: 'Ciencias Naturales',
+      nivel: '3° Básico',
+      unidad: 'Unidad 4: Agua en la Naturaleza',
+      estado: 'borrador',
+      fechaCreacion: new Date('2024-03-28')
+    },
+    {
+      id: '7',
+      titulo: 'La Independencia de Chile',
+      asignatura: 'Historia y Geografía',
+      nivel: '6° Básico',
+      unidad: 'Unidad 3: Formación de la República',
+      estado: 'completada',
+      fechaCreacion: new Date('2024-04-01')
+    },
+    {
+      id: '8',
+      titulo: 'Producción de Textos Descriptivos',
+      asignatura: 'Lenguaje y Comunicación',
+      nivel: '5° Básico',
+      unidad: 'Unidad 3: Escritura Creativa',
+      estado: 'borrador',
+      fechaCreacion: new Date('2024-04-05')
+    }
+  ];
 
-  // Carga planificaciones desde storage
-  private async loadPlanificaciones(): Promise<void> {
-    const planificaciones = await this.storageService.get(this.STORAGE_KEY) || [];
-    this.planificacionesSubject.next(planificaciones);
-  }
+  constructor() { }
 
-  // Guarda planificaciones en storage
-  private async savePlanificaciones(): Promise<void> {
-    await this.storageService.set(this.STORAGE_KEY, this.planificacionesSubject.value);
-  }
-
-  // Obtiene todas las planificaciones
+  // Método para obtener todas las planificaciones
   getPlanificaciones(): Observable<Planificacion[]> {
-    return this.planificaciones;
+    return of(this.planificacionesMock);
   }
 
-  // Obtiene una planificación por ID
-  getPlanificacionById(id: string): Planificacion | undefined {
-    return this.planificacionesSubject.value.find(p => p.id === id);
+  // Método para obtener una planificación por ID
+  getPlanificacionById(id: string): Observable<Planificacion | undefined> {
+    const planificacion = this.planificacionesMock.find(p => p.id === id);
+    return of(planificacion);
   }
 
-  // Crea nueva planificación
-  async createPlanificacion(planificacion: Omit<Planificacion, 'id' | 'fechaCreacion'>): Promise<void> {
-    const nuevaPlanificacion: Planificacion = {
-      ...planificacion,
-      id: Date.now().toString(),
-      fechaCreacion: new Date()
-    };
-
-    const planificaciones = [...this.planificacionesSubject.value, nuevaPlanificacion];
-    this.planificacionesSubject.next(planificaciones);
-    await this.savePlanificaciones();
+  // Método para agregar una nueva planificación
+  addPlanificacion(planificacion: Planificacion): Observable<Planificacion> {
+    this.planificacionesMock.push(planificacion);
+    return of(planificacion);
   }
 
-  // Actualiza planificación existente
-  async updatePlanificacion(id: string, planificacion: Partial<Planificacion>): Promise<void> {
-    const planificaciones = this.planificacionesSubject.value.map(p =>
-      p.id === id ? { ...p, ...planificacion } : p
-    );
-    this.planificacionesSubject.next(planificaciones);
-    await this.savePlanificaciones();
+  // Método para actualizar una planificación
+  updatePlanificacion(planificacion: Planificacion): Observable<Planificacion> {
+    const index = this.planificacionesMock.findIndex(p => p.id === planificacion.id);
+    if (index !== -1) {
+      this.planificacionesMock[index] = planificacion;
+    }
+    return of(planificacion);
   }
 
-  // Elimina planificación
-  async deletePlanificacion(id: string): Promise<void> {
-    const planificaciones = this.planificacionesSubject.value.filter(p => p.id !== id);
-    this.planificacionesSubject.next(planificaciones);
-    await this.savePlanificaciones();
+  // Método para eliminar una planificación
+  deletePlanificacion(id: string): Observable<boolean> {
+    const index = this.planificacionesMock.findIndex(p => p.id === id);
+    if (index !== -1) {
+      this.planificacionesMock.splice(index, 1);
+      return of(true);
+    }
+    return of(false);
   }
 }

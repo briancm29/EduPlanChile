@@ -1,37 +1,238 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Perfil</ion-title>
+    <ion-title>Mi Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
   
+  <!-- Header del perfil con avatar -->
   <div class="profile-header">
     <ion-avatar>
       <ion-icon name="person-circle"></ion-icon>
     </ion-avatar>
     <h2>{{ user?.nombre }} {{ user?.apellido }}</h2>
-    <p>{{ user?.email }}</p>
+    <p class="email">{{ user?.email }}</p>
     <ion-chip [color]="user?.rol === 'docente' ? 'primary' : 'secondary'">
       <ion-label>{{ user?.rol }}</ion-label>
     </ion-chip>
+    <ion-button fill="outline" size="small" (click)="editarPerfil()" color="light">
+      <ion-icon name="create-outline" slot="start"></ion-icon>
+      Editar Perfil
+    </ion-button>
   </div>
 
-  <ion-list>
-    <ion-item button>
-      <ion-icon name="settings" slot="start"></ion-icon>
-      <ion-label>Configuración</ion-label>
+  <!-- Información Personal -->
+  <ion-list class="info-section">
+    <!-- COMPONENTE NUEVO: ion-list-header -->
+    <ion-list-header>
+      <ion-label>Información Personal</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Email</h3>
+        <p>{{ user?.email }}</p>
+      </ion-label>
     </ion-item>
-    
-    <ion-item button>
-      <ion-icon name="help-circle" slot="start"></ion-icon>
-      <ion-label>Ayuda</ion-label>
+
+    <ion-item>
+      <ion-icon name="call-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Teléfono</h3>
+        <p>+56 9 1234 5678</p>
+      </ion-label>
     </ion-item>
-    
-    <ion-item button (click)="logout()" color="danger">
-      <ion-icon name="log-out" slot="start"></ion-icon>
-      <ion-label>Cerrar Sesión</ion-label>
+
+    <ion-item>
+      <ion-icon name="ribbon-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Especialidad</h3>
+        <p>{{ infoAdicional.especialidad }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="briefcase-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Años de Experiencia</h3>
+        <p>{{ infoAdicional.aniosExperiencia }} años</p>
+      </ion-label>
     </ion-item>
   </ion-list>
+
+  <!-- Información del Establecimiento -->
+  <ion-list class="info-section">
+    <!-- COMPONENTE NUEVO: ion-list-header -->
+    <ion-list-header>
+      <ion-label>Establecimiento</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-icon name="school-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Nombre</h3>
+        <p>{{ infoAdicional.establecimiento }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="location-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Ubicación</h3>
+        <p>{{ infoAdicional.comuna }}, {{ infoAdicional.region }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="key-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>RBD</h3>
+        <p>{{ infoAdicional.rbd }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Configuraciones de la App -->
+  <ion-list class="info-section">
+    <!-- COMPONENTE NUEVO: ion-list-header -->
+    <ion-list-header>
+      <ion-label>Configuraciones de la App</ion-label>
+    </ion-list-header>
+
+    <!-- COMPONENTE NUEVO: ion-toggle -->
+    <ion-item>
+      <ion-icon name="notifications-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Notificaciones</h3>
+        <p>Recibir alertas de la aplicación</p>
+      </ion-label>
+      <ion-toggle 
+        slot="end" 
+        [(ngModel)]="configuraciones.notificaciones"
+        (ionChange)="toggleNotificaciones($event)">
+      </ion-toggle>
+    </ion-item>
+
+    <!-- COMPONENTE NUEVO: ion-toggle -->
+    <ion-item>
+      <ion-icon name="notifications-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Notificaciones Push</h3>
+        <p>Recibir notificaciones en el dispositivo</p>
+      </ion-label>
+      <ion-toggle 
+        slot="end" 
+        [(ngModel)]="configuraciones.notificacionesPush"
+        (ionChange)="toggleNotificacionesPush($event)"
+        [disabled]="!configuraciones.notificaciones">
+      </ion-toggle>
+    </ion-item>
+
+    <!-- COMPONENTE NUEVO: ion-toggle -->
+    <ion-item>
+      <ion-icon name="moon-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Modo Oscuro</h3>
+        <p>Tema oscuro para la aplicación</p>
+      </ion-label>
+      <ion-toggle 
+        slot="end" 
+        [(ngModel)]="configuraciones.modoOscuro"
+        (ionChange)="toggleModoOscuro($event)">
+      </ion-toggle>
+    </ion-item>
+
+    <!-- COMPONENTE NUEVO: ion-toggle -->
+    <ion-item>
+      <ion-icon name="sync-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Sincronización Automática</h3>
+        <p>Sincronizar datos automáticamente</p>
+      </ion-label>
+      <ion-toggle 
+        slot="end" 
+        [(ngModel)]="configuraciones.sincronizacionAuto"
+        (ionChange)="toggleSincronizacion($event)">
+      </ion-toggle>
+    </ion-item>
+
+    <!-- COMPONENTE NUEVO: ion-toggle -->
+    <ion-item>
+      <ion-icon name="wifi-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Descarga solo con WiFi</h3>
+        <p>Evitar uso de datos móviles</p>
+      </ion-label>
+      <ion-toggle 
+        slot="end" 
+        [(ngModel)]="configuraciones.descargaWifi"
+        (ionChange)="toggleDescargaWifi($event)">
+      </ion-toggle>
+    </ion-item>
+
+    <!-- COMPONENTE NUEVO: ion-toggle -->
+    <ion-item>
+      <ion-icon name="alarm-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Recordatorios</h3>
+        <p>Recordatorios de planificaciones pendientes</p>
+      </ion-label>
+      <ion-toggle 
+        slot="end" 
+        [(ngModel)]="configuraciones.recordatorios"
+        (ionChange)="toggleRecordatorios($event)">
+      </ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <!-- Acciones de Cuenta -->
+  <ion-list class="info-section">
+    <!-- COMPONENTE NUEVO: ion-list-header -->
+    <ion-list-header>
+      <ion-label>Cuenta y Seguridad</ion-label>
+    </ion-list-header>
+
+    <ion-item button (click)="cambiarContrasena()">
+      <ion-icon name="lock-closed-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Cambiar Contraseña</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>
+    </ion-item>
+
+    <ion-item button (click)="verAyuda()">
+      <ion-icon name="help-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Ayuda y Soporte</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>
+    </ion-item>
+
+    <ion-item button (click)="verAcercaDe()">
+      <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h3>Acerca de EduPlan Chile</h3>
+      </ion-label>
+      <ion-icon name="chevron-forward" slot="end" color="medium"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <!-- Cerrar Sesión -->
+  <ion-list class="info-section">
+    <ion-item button (click)="logout()" color="danger" lines="none">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h3>Cerrar Sesión</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Versión de la App -->
+  <div class="version-info">
+    <p>EduPlan Chile v1.0.0 (Parte A)</p>
+    <p>© 2024 UNIACC - Taller de Dispositivos Móviles</p>
+  </div>
 
 </ion-content>

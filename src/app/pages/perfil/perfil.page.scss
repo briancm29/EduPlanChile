@@ -1,6 +1,9 @@
+// Header del perfil
 .profile-header {
   text-align: center;
-  padding: 32px 16px;
+  padding: 40px 20px 30px;
+  background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+  color: white;
   
   ion-avatar {
     width: 100px;
@@ -9,17 +12,148 @@
     
     ion-icon {
       font-size: 100px;
-      color: var(--ion-color-primary);
+      color: rgba(255, 255, 255, 0.9);
     }
   }
-
+  
   h2 {
+    margin: 0 0 8px;
     font-size: 24px;
-    margin: 0 0 8px 0;
+    font-weight: 600;
   }
+  
+  .email {
+    margin: 0 0 12px;
+    opacity: 0.9;
+    font-size: 15px;
+  }
+  
+  ion-chip {
+    margin: 8px 0 16px;
+  }
+  
+  ion-button {
+    margin-top: 8px;
+  }
+}
 
+// Secciones de información
+.info-section {
+  margin-bottom: 16px;
+  
+  ion-list-header {
+    padding: 16px 16px 8px;
+    
+    ion-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+  
+  ion-item {
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+    
+    ion-icon[slot="start"] {
+      margin-right: 16px;
+      font-size: 24px;
+    }
+    
+    ion-label {
+      h3 {
+        font-size: 15px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 4px;
+      }
+      
+      p {
+        font-size: 14px;
+        color: #666;
+        white-space: normal;
+      }
+    }
+    
+    // Estilos para toggles
+    ion-toggle {
+      --handle-width: 26px;
+      --handle-height: 26px;
+    }
+    
+    // Items clickeables
+    &[button] {
+      cursor: pointer;
+      
+      &:hover {
+        --background: rgba(25, 118, 210, 0.05);
+      }
+    }
+    
+    // Item de cerrar sesión
+    &[color="danger"] {
+      margin-top: 8px;
+      
+      ion-label h3 {
+        color: var(--ion-color-danger);
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Info de versión
+.version-info {
+  text-align: center;
+  padding: 30px 20px 40px;
+  color: #999;
+  font-size: 13px;
+  
   p {
-    color: var(--ion-color-medium);
-    margin: 0 0 16px 0;
+    margin: 4px 0;
+  }
+}
+
+// Responsive para tablets
+@media (min-width: 768px) {
+  ion-content {
+    --padding-start: 10%;
+    --padding-end: 10%;
+  }
+  
+  .info-section {
+    max-width: 600px;
+    margin: 16px auto;
+  }
+}
+
+// Tema oscuro (opcional)
+.dark {
+  .profile-header {
+    background: linear-gradient(135deg, #1565C0 0%, #0D47A1 100%);
+  }
+  
+  .info-section {
+    ion-list-header ion-label {
+      color: #aaa;
+    }
+    
+    ion-item {
+      ion-label {
+        h3 {
+          color: #eee;
+        }
+        
+        p {
+          color: #aaa;
+        }
+      }
+    }
+  }
+  
+  .version-info {
+    color: #666;
   }
 }
